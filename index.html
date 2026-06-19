@@ -3,25 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>교사 기초학력 연수 이수증 제출</title>
+    <title>상주고 교사 기초학력 연수 이수증 제출</title>
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f6f9; margin: 0; padding: 20px; color: #333; }
         .container { max-width: 550px; margin: 30px auto; background: #ffffff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
-        h2 { text-align: center; color: #2c3e50; margin-bottom: 25px; font-weight: 600; }
+        
+        /* 로고 스타일 추가 */
+        .logo-container { text-align: center; margin-bottom: 10px; }
+        .logo-container img { width: 120px; height: auto; } /* 로고 크기 조절 (필요시 120px 숫자 변경) */
+        
+        h2 { text-align: center; color: #1a3673; margin-bottom: 25px; font-weight: 600; letter-spacing: -1px; } /* 상주고 마크 색상(네이비)에 맞춰 텍스트 색상 약간 조정 */
         .form-group { margin-bottom: 18px; }
         label { display: block; margin-bottom: 8px; font-weight: bold; color: #4e5d6c; font-size: 14px; }
         input[type="text"], input[type="number"], input[type="file"] { width: 100%; padding: 12px; border: 1px solid #ced4da; border-radius: 6px; box-sizing: border-box; font-size: 15px; transition: border 0.2s; }
-        input[type="text"]:focus, input[type="number"]:focus { border-color: #4a90e2; outline: none; }
+        input[type="text"]:focus, input[type="number"]:focus { border-color: #1a3673; outline: none; }
         input[type="file"] { background: #fafafa; cursor: pointer; }
-        button { width: 100%; padding: 14px; background-color: #4a90e2; border: none; color: white; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; margin-top: 10px; transition: background 0.2s; }
-        button:hover { background-color: #357abd; }
-        .loading { display: none; text-align: center; color: #4a90e2; font-weight: bold; margin-top: 15px; }
+        button { width: 100%; padding: 14px; background-color: #1a3673; border: none; color: white; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; margin-top: 10px; transition: background 0.2s; }
+        button:hover { background-color: #122652; }
+        .loading { display: none; text-align: center; color: #1a3673; font-weight: bold; margin-top: 15px; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>교사 기초학력 연수 이수증 제출</h2>
+    <div class="logo-container">
+        <img src="logo.jpg" alt="상주고등학교 마크">
+    </div>
+    
+    <h2>상주고 교사 기초학력 연수 이수증 제출</h2>
+    
     <form id="submissionForm">
         <div class="form-group">
             <label for="teacherName">교원명</label>
@@ -53,7 +63,6 @@
 </div>
 
 <script>
-    // ⚠️ 주의: 1단계에서 복사한 구글 Apps Script 배포 URL을 여기에 붙여넣으세요.
     const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwfS34N4Zyir6VxCaUQYwKbvZZAGXNgKvskhSajb4jCAeuhip92esD1D21pd9lmVduQ/exec";
 
     document.getElementById('submissionForm').addEventListener('submit', function(e) {
@@ -69,7 +78,6 @@
         submitBtn.disabled = true;
         loadingText.style.display = "block";
 
-        // 파일을 Base64 데이터로 인코딩하여 전송하기 위한 FileReader 함수
         const reader = new FileReader();
         reader.onload = function(event) {
             const formData = {
@@ -82,11 +90,10 @@
                 fileData: event.target.result
             };
 
-            // 구글 스크립트 서버로 데이터 전송 (CORS 방지 처리를 위해 fetch 사용)
             fetch(WEB_APP_URL, {
                 method: 'POST',
                 body: JSON.stringify(formData),
-                mode: 'no-cors' // 중요: Apps Script 교차 출처 대응
+                mode: 'no-cors'
             })
             .then(() => {
                 alert("이수증 제출이 완료되었습니다!");
@@ -102,9 +109,9 @@
             });
         };
         
-        reader.readAsDataURL(file); // 파일을 읽어 base64 스트링으로 변환
+        reader.readAsDataURL(file);
     });
 </script>
 
 </body>
-</html>  
+</html>
